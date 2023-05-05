@@ -1,0 +1,46 @@
+<!DOCTYPE html><!--Aqui empieza-->
+<html lang="es">
+<head><!--Cabecera-->
+    <meta charset="UTF-8"><!--Juego de caracteres-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--Compatibilidad del navegador-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--Proporcion de la vista del dispositivo-->
+    <title>Ejercicio 1</title><!--Titulo-->
+    <link rel="stylesheet" href="resources/css/styles.css">
+</head>
+<body><!--Cuerpo-->
+    <!--Etiquetas de bloque, con estrucutras-->
+    <!--
+        <div></div>
+        <section></section>
+        <head></head>
+        <footer></footer>
+    -->
+    <div id="app"><!--Id identifica de manera univoca, sirve tambien para asignar estilos-->
+        <div class="container"><!--Pueden haber varios de la misma clase-->
+            <header class="header">
+                <div class="titulo">
+                    <h1>AGENCIA DE SEMINUEVOS DEL TIO</h1>
+                </div>
+                <div class="logo">
+                    <img src="./resources/img/semilogo.png" alt="Logo">
+                </div>
+                <nav>
+                    <ul>
+                        <li><a class="mitem" href="#" data-tipo-auto="todos">Inicio</a> | </li>
+                        <li><a class="mitem" href="#" data-tipo-auto="todos">Todos los autos</a> | </li>
+                        <li><a class="mitem" href="#" data-tipo-auto="auto">Sedan</a> | </li>
+                        <li><a class="mitem" href="#" data-tipo-auto="suv">Suv</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <section class="content" id="content"> <!--DOM Document Object Model-->
+                <div class="grid-container" id="fichas">
+                    <!--Bloque dinamico-->
+                </div>
+            </section>
+        </div>
+        <br><br>
+    </div>
+    <script src="./resources/js/app.js"></script>
+</body>
+</html><!--Aqui termina-->

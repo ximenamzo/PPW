@@ -1,0 +1,124 @@
+html,body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    width: auto;
+    min-height: 100%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    line-height: 1.2em;
+}
+
+.header {
+    position: relative;
+    top: 0;
+    width: 100%;
+    min-height: auto;
+    margin: 0;
+    padding: 0;
+    border-bottom: 2px solid #AAAA;
+    color: #b21818;
+    background-color: #ffffff;
+}
+
+.header .titulo {
+    display: inline-block;
+    padding: 0;
+    margin: 0 0 0 2%;
+}
+
+.header .titulo > h1 { /* > hijo inmediato*/
+    margin: 5% 0 0;
+}
+
+.header > nav {
+    margin: 1%;
+}
+
+.header > nav ul li{
+    display: inline;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+.mitem{
+    text-decoration: none;
+    color: #333;
+    transition: 0.8s;
+}
+
+.mitem:hover{
+    text-decoration: none;
+    color: #b21818;
+    font-weight: bold;
+    transform: scale(1.1);
+    transition: 0.8s;
+}
+
+.logo {
+    display: block;
+    float: right;
+    margin-right: 1%;
+}
+
+.logo > img{
+    margin: 3%;
+    max-width: 50%;
+    min-width: 50%;
+    max-height: 50%;
+    min-height: 50%;
+    align-self: center;
+}
+
+.ficha {
+    /*border: 2px solid #188c2d;*/
+    width: 70%;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 20px;
+    box-shadow: 1px 1px 10px #a7a1a1;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    align-content: center;
+}
+
+.ficha:hover {
+    transform: scale(1.1);
+    transition: .5s;
+}
+
+.ficha > img {
+    max-width: 250px;
+    max-height: auto;
+    min-width: 200px;
+    min-height: auto;
+    border-radius: 10px;
+}
+
+.ficha > .datos {
+    padding: 5px 20px;
+    color: rgb(0, 0, 0);
+    margin-top: 0s;
+    vertical-align: bottom;
+}
+
+.ficha > .datos h3{
+    color: #b21818;
+}
+
+.content {
+    width: 100%;
+    padding: 1% auto auto auto;
+    background-color: #cdcdcd;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    margin: 2%;
+}
+
+/*background: -webkit-linear-gradient(rgb(238, 9, 9), rgb(15, 64, 225));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;*/

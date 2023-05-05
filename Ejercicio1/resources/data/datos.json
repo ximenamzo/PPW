@@ -1,0 +1,86 @@
+[
+    {
+        "id" : 1,
+        "tipo" : "auto",
+        "foto" : "figo.jpg",
+        "marca": "Ford",
+        "modelo" : "Figo",
+        "anio" : "2016",
+        "motor" : {
+            "desplazamiento" : "1.4L",
+            "potencia" : "108 HP",
+            "kilometraje" : "75,000 km"
+        },
+        "detalles" : "Sin motor"
+    },
+    {
+        "id" : 2,
+        "tipo" : "suv",
+        "foto" : "xtrail.jpg",
+        "marca": "Nissan",
+        "modelo" : "X-Trail",
+        "anio" : "2019",
+        "motor" : {
+            "desplazamiento" : "2.4L",
+            "potencia" : "150 HP",
+            "kilometraje" : "23,000 km"
+        },
+        "detalles" : "Sin puertas"
+    },
+    {
+        "id" : 3,
+        "tipo" : "suv",
+        "foto" : "crv.png",
+        "marca": "Honda",
+        "modelo" : "CRV",
+        "anio" : "2015",
+        "motor" : {
+            "desplazamiento" : "2.6L",
+            "potencia" : "170 HP",
+            "kilometraje" : "105,000 km"
+        },
+        "detalles" : "Manchas de sangre"
+    },
+    {
+        "id" : 4,
+        "tipo" : "auto",
+        "foto" : "rio.jpg",
+        "marca": "Kia",
+        "modelo" : "Rio",
+        "anio" : "2018",
+        "motor" : {
+            "desplazamiento" : "1.6L",
+            "potencia" : "110 HP",
+            "kilometraje" : "36,000 km"
+        },
+        "detalles" : "Vómito de perro"
+    },
+    {
+        "id" : 5,
+        "tipo" : "suv",
+        "foto" : "duster.jpg",
+        "marca": "Renault",
+        "modelo" : "Duster",
+        "anio" : "2016",
+        "motor" : {
+            "desplazamiento" : "2.0L",
+            "potencia" : "135 HP",
+            "kilometraje" : "48,000 km"
+        },
+        "detalles" : "Paloma muerta dentro"
+    },
+    {
+        "id" : 6,
+        "tipo" : "auto",
+        "foto" : "camry.jpg",
+        "marca": "Toyota",
+        "modelo" : "Camry",
+        "anio" : "2017",
+        "motor" : {
+            "desplazamiento" : "2.0L",
+            "potencia" : "180 HP",
+            "kilometraje" : "56,000 km"
+        },
+        "detalles" : "Llantas ponchadas"
+    }
+]
