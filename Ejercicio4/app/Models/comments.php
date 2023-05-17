@@ -8,6 +8,6 @@ class comments extends DB {
 		$this->table = $this->db_connect();
 	}
 
-	protected $campos = ['postId', 'name', 'comment'];
+	protected $campos = ['postId', 'name', 'email' ,'comment'];
 	public $valores = [];
 }

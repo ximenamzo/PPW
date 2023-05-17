@@ -16,41 +16,13 @@
             print_r($userLogin->userAuth($datos));
         }
 
-        // R E G I S T E R
-        $register = in_array('_register', array_keys(filter_input_array(INPUT_POST)));
-        if($register){
-            $datos = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-            $userRegister = new LoginController();
-            print_r($userRegister->userRegister($datos));
-        }
-
         // G U A R D A R   N U E V A   P U B L I C A C I O N
         $gp = in_array('_gp', array_keys(filter_input_array(INPUT_POST)));
         if($gp){
             $datos = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
             $post = new PostController();
             $post->newPost($datos);
-            header('Location: /PPW/Ejercicio4/resources/views/autores/newPost.php');
-        }
-
-
-        // E D I T A R   P U B L I C A C I O N
-        $ep = in_array('_ep', array_keys(filter_input_array(INPUT_POST)));
-        if($ep){
-            $datos = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-            print_r($datos);
-            $post = new PostController();
-            $post->editPost($datos);
-            header('Location: /PPW/Ejercicio4/resources/views/autores/myposts.php');
-        }
-
-        
-        // Guardar  c o m e n t a r i o s
-        $sc = in_array('_sc', array_keys(filter_input_array(INPUT_POST)));
-        if($sc){
-            $datos = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-            $post = new PostController();
-            print_r($post->saveComment($datos));
+            header('Location: /PPW/Ejercicio4xime/resources/views/autores/newPost.php');
         }
     }
 
@@ -60,7 +32,7 @@
         if($logout){
             $userLogout = new LoginController();
             $userLogout->logout();
-            header('Location: /PPW/Ejercicio4/resources/views/home.php');
+            header('Location: /PPW/Ejercicio4xime/resources/views/home.php');
         }
 
         // Cargar Publicaciones Previas

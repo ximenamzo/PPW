@@ -1,24 +1,16 @@
 const app = {
     routes : {
-		inisession : "/PPW/Ejercicio4/resources/views/auth/login.php",
-		endsession : "/PPW/Ejercicio4/app/app.php?_logout",
-		login : "/PPW/Ejercicio4/app/app.php",
-        register: "/PPW/Ejercicio4/resources/views/auth/register.php",
-        doregister: "/PPW/Ejercicio4/app/app.php",
-        home : "/PPW/Ejercicio4/resources/views/home.php",
-		prevpost : "/PPW/Ejercicio4/app/app.php?_pp",
-		lastpost : "/PPW/Ejercicio4/app/app.php?_lp",
-        openpost : "/PPW/Ejercicio4/app/app.php?_op",
-        newpost : "/PPW/Ejercicio4/resources/views/autores/newPost.php",
-        myposts : "/PPW/Ejercicio4/resources/views/autores/myposts.php",
-        savecomment : "/PPW/Ejercicio4/app/app.php?_sc",
+		inisession : "/PPW/Ejercicio4xime/resources/views/auth/login.php",
+		endsession : "/PPW/Ejercicio4xime/app/app.php?_logout",
+		login : "/PPW/Ejercicio4xime/app/app.php",
+        home : "/PPW/Ejercicio4xime/resources/views/home.php",
+		prevpost : "/PPW/Ejercicio4xime/app/app.php?_pp",
+		lastpost : "/PPW/Ejercicio4xime/app/app.php?_lp",
+        openpost : "/PPW/Ejercicio4xime/app/app.php?_op",
+        newpost : "/PPW/Ejercicio4xime/resources/views/autores/newPost.php",
+        myposts : "/PPW/Ejercicio4xime/resources/views/autores/myposts.php",
 	},
 
-    user : {
-        sv : false,
-        id : 0,
-        tipo : ""
-    },
     pp : $("#prev-post"),
 	lp : $("#content"),
 
@@ -82,7 +74,16 @@ const app = {
 			.then(response => response.json())
 			.then(lpresp => {
 				if(lpresp.length > 0){
-					html = this.postHTMLLoad(lpresp);
+					html = `
+                        <div class="w-100 border-bottom mt-4">
+                            <h5 class="mb-1">${lpresp[0].title}</h5>
+                            <small class="text-muted"> 
+                                <i class="bi bi-person-circle"></i>${lpresp[0].name} | 
+                                <i class="bi bi-calendar-week"></i>${lpresp[0].fecha} 
+                            </small>
+                            <p class="mb-1">${lpresp[0].body}</p>
+                        </div>
+                    `;
                 }
                 this.lp.html(html);
 			}).catch(err => console.error(err));
@@ -94,54 +95,23 @@ const app = {
         element.classList.add("active"); //profe
         let html = "<h2>Aún no hay publicaciones</h2>";
         this.lp.html("");
+
         fetch(this.routes.openpost + "&pid=" + pid)
 			.then(response => response.json())
-			.then(post => {
-				if(post.length > 0){
-                    html = this.postHTMLLoad(post);
+			.then(opresp => {
+				if(opresp.length > 0){
+					html = `
+                        <div class="w-100 border-top border-bottom mt-4">
+                            <h5 class="mb-1 mt-1">${opresp[0].title}</h5>
+                            <small class="text-muted"> 
+                                <i class="bi bi-person-circle"></i>  ${opresp[0].name} | 
+                                <i class="bi bi-calendar-week"></i>  ${opresp[0].fecha} 
+                            </small>
+                            <p class="mb-1 border-top text-justify mt-2 fs-6">${opresp[0].body}</p>
+                        </div>
+                    `;
                 }
                 this.lp.html(html);
 			}).catch(err => console.error(err));
-    },
-    
-    postHTMLLoad : function (post){
-        return `<div class="w-100 border-bottom mt-4">
-                    <h5 class="mb-1">${post[0].title}</h5>
-                    <small class="text-muted mt-3"> 
-                        <i class="bi bi-person-circle mx-1"></i>${post[0].name} | 
-                        <i class="bi bi-calendar-week mx-1"></i>${post[0].fecha} 
-                    </small>
-                    <p class="mt-2 pb-3 border-bottom fs-5" style="text-align:justify;">
-                        ${post[0].body}
-                    </p>
-                    <i class="bi bi-hand-thumbs-up"></i> <span id="likes">${0}</span>
-                    <p class="float-end">
-                        <span id="comentarios"><i class="bi bi-chat-right"></i> ${ 0 } comentarios</span>
-                    </p>
-                    <div class="input-group mt-3 mb-2">
-                        <input type="text" class="form-control" ${ this.user.sv ? '' : 'disabled readonly'}
-                            placeholder="${ this.user.sv ? 'Deja tu comentario...' : 'Ingresa para poder realizar comentarios'}" 
-                            name="comment" id="comment"
-                            aria-label="Deja tu comentario..." 
-                            aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="app.saveComment(${post[0].id});">
-                            <i class="bi bi-send"></i>
-                        </button>
-                    </div>
-                </div>
-            `;
-    },
-
-    saveComment(pid, uid){
-        const datos = new FormData();
-        datos.append('pid',pid);
-        datos.append("comment",$("#comment").val());
-        datos.append('_sc',"");
-        fetch(this.routes.savecomment,{
-            method:"POST",
-            body: datos
-        }).then( () => {
-            $("#comment").val("");
-        }).catch(err => console.error("Hay un error: ", err));
     }
 }

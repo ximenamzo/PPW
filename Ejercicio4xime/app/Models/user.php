@@ -8,6 +8,6 @@ class user extends DB {
 		$this->table = $this->db_connect();
 	}
 
-	protected $campos = ['name', 'username', 'email','passwd'];
+	protected $campos = ['name', 'username', 'passwd'];
 	public $valores = [];
 }

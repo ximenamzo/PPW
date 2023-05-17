@@ -1,13 +1,13 @@
 <?php 
 
 namespace Models;
-class user extends DB {
+class comments extends DB {
 	public $table;
 	function __construct(){
 		parent::__construct();
 		$this->table = $this->db_connect();
 	}
 
-	protected $campos = ['name', 'username', 'email','passwd'];
+	protected $campos = ['postId', 'name', 'comment'];
 	public $valores = [];
 }

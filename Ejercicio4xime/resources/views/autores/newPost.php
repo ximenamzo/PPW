@@ -1,7 +1,7 @@
 <?php
     namespace views;
-    require 'C:\xampp\htdocs\PPW\Ejercicio4\app\autoloader.php';
-    include "C:/xampp/htdocs/PPW/Ejercicio4/resources/views/layouts/main.php";
+    require 'C:\xampp\htdocs\PPW\Ejercicio4xime\app\autoloader.php';
+    include "C:/xampp/htdocs/PPW/Ejercicio4xime/resources/views/layouts/main.php";
     use Controllers\auth\LoginController as LoginController;
     $ua = new LoginController;
     is_null($ua->sessionValidate()) ? header('Location: ./resources/views/auth/login.php') : '';
@@ -10,10 +10,9 @@
 
 <section class="container py-3">
     <h1 class="border-bottom">Nueva Publicación</h1>
-    <form action="/PPW/Ejercicio4/app/app.php" method="POST">
+    <form action="/PPW/Ejercicio4xime/app/app.php" method="POST">
         <div class="card">
             <div class="card-body">
-                <input type="hidden" name="pid" value="null">
                 <input type="hidden" name="uid" value="<?=$ua->id?>">
                 <input type="hidden" name="_gp" value="true">
                 <div class="mb-3">

@@ -24,9 +24,6 @@
                     <button class="btn btn-primary" type="submit">
                         Iniciar Sesión <i class="bi bi-emoji-smile"></i>
                     </button>
-                    <button class="btn btn-link float-end" type="button" onclick="app.view('register');">
-                        Si no tienes una cuenta registrate ¡aquí!
-                    </button>
                 </div>
             </form>
         </div>
