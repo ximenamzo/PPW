@@ -11,6 +11,7 @@ const app = {
         openpost : "/PPW/Ejercicio4/app/app.php?_op",
         newpost : "/PPW/Ejercicio4/resources/views/autores/newPost.php",
         myposts : "/PPW/Ejercicio4/resources/views/autores/myposts.php",
+        toggleLike : "/PPW/Ejercicio4/app/app.php?_tl",
         postcomments : "/PPW/Ejercicio4/app/app.php?_pm",
         savecomment : "/PPW/Ejercicio4/app/app.php?_sc",
 	},
@@ -116,7 +117,10 @@ const app = {
                     <p class="mt-2 pb-3 border-bottom fs-5" style="text-align:justify;">
                         ${post[0].body}
                     </p>
-                    <i class="bi bi-hand-thumbs-up"></i> <span id="likes">${0}</span>
+                    <a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}"
+                       onlick="app.toggleLike(event, ${app.user.id}, ${post[0].id})">
+                        <i class="bi bi-hand-thumbs-up"></i> <span id="likes">${0}</span>
+                    </a>
                     <p class="float-end">
                         <span id="comentarios">
                             <a href="#" role="button"
@@ -153,7 +157,16 @@ const app = {
             `;
     },
 
-    toggleComments(e,pid,element) {
+    toggleLike : function (event, uid, pid) {
+        event.preventDefault();
+        fetch(this.routes.toggleLike + "&uid=" + uid + "&pid=" + pid)
+            .then(response => response.json())
+            .then(likes => {
+                $("#likes").html(likes[0].tt);
+            }).catch(err => console.error("Hubo un error: ", err));
+    },
+
+    toggleComments : function (e,pid,element) {
         if(e){
             e.preventDefault();
             $(element).toggleClass("d-none");
@@ -179,7 +192,7 @@ const app = {
     },
 
 
-    saveComment(pid, uid){
+    saveComment : function (pid, uid){
         if($("#comment").val() !== ""){
             const commentInput = $("#comment");
             const commentText = commentInput.val().trim();

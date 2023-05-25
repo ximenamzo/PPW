@@ -5,6 +5,7 @@
     use Models\posts;
     use Models\user;
     use Models\comments;
+	use Models\interactions;
 
     use Controllers\auth\LoginController as LoginController;
 
@@ -98,5 +99,12 @@
 			$u = json_decode($u);
 			$comment->valores = [$datos['pid'],$u[0]->name,$u[0]->email,$datos['comment']];
 			print_r($comment->create());
+		}
+
+		// I N T E R A C C I O N E S
+		public function toggleLike($uid, $pid){
+			$like = new interactions();
+			$like->valores = [$uid,$pid,1];
+			$like->create();
 		}
     }

@@ -102,6 +102,14 @@
             print_r($checkcom->checkComments(1, $c));
         }
 
+        // Like o no like
+        $tl = in_array('_tl', array_keys(filter_input_array(INPUT_GET)));
+        if($tl){
+            $datos = filter_input_array(INPUT_GET);
+            $post = new PostController();
+            print_r(json_encode(['r' => $post->toggleLike($datos['uid'],$datos['pid'])]));
+        }
+
         // Desactivar publicacion
         $tpa = in_array('_tpa', array_keys(filter_input_array(INPUT_GET)));
         if($tpa){
