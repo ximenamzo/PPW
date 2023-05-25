@@ -75,7 +75,7 @@ const app_myposts = {
 
                                     
                                     <!-- D E S A C T I V A R   P U B L I C A C I O N -->
-                                    <a href="#" class="link-success" onclick="">
+                                    <a href="#" class="link-success" onclick="app_myposts.togglePostActive(${post.id}, ${post.userId})">
                                         <i class="bi bi-toggle-on"></i></a>
 
 
@@ -160,7 +160,10 @@ const app_myposts = {
         fetch(this.url + "?_cc&pid=" + pid)
             .then(resp => resp.json())
             .then(comments => {
-                let commentCount = comments.length;
+                //let commentCount = comments.length;
+                console.log(comments);
+                //if(comments[0].tt > 0) msg
+                let commentCount = comments[0].tt;
                 if (commentCount > 0) {
                     $('#confcom' + pid).html(`<br><p style="color:gray;">Esta publicaci&oacute;n tiene ${commentCount} comentarios asociados.</p>`);
                 } else {
@@ -169,6 +172,17 @@ const app_myposts = {
                 modal.modal('show');
             })
             .catch(err => console.error(err));
+    },
+
+    togglePostActive : function(pid, uid) {
+                         // toggle post active
+        fetch(this.url + "?_tpa&pid=" + pid)
+            .then(resp => {
+                if(resp.ok){
+                    alert("Publicación actualizada correctamente");
+                    this.getMyPosts(uid);
+                }
+            }).catch(err => console.error("Hay un error: ", err));
     },
 
     deletePost : function(pid, modaldelId, thismid) {

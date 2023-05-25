@@ -19,7 +19,7 @@
 
 		public function checkComments($limit="", $pid = ""){
 			$comments = new comments();
-			$result = $comments->where([['postId', $pid]])->get();
+			$result = $comments->where([['postId', $pid]])->count()->get();
             return $result;
 		}
 

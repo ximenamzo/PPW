@@ -13,7 +13,7 @@
     <form action="/PPW/Ejercicio4/app/app.php" method="POST">
         <div class="card">
             <div class="card-body">
-                <table class="table table-stri" ed="">
+                <table class="table table-striped" ed="">
                     <thead>
                         <th>Titulo</th>
                         <th>Fecha</th>

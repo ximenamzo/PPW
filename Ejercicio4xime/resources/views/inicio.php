@@ -1,5 +1,5 @@
 <?php
-    include "C:/xampp/htdocs/PPW/Ejercicio4xime/resources/views/layouts/main.php";
+    include "C:/xampp/htdocs/PPW/Ejercicio4/resources/views/layouts/main.php";
     head();
 ?>
 <div class="row mx-auto" style="90%">

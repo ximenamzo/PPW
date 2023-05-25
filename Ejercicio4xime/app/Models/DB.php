@@ -111,6 +111,24 @@
             // comilla doble evalua variables
         }
 
+        public function update($postId){
+            $valores = array_values($this->valores);
+            $campos = array_map(function ($campo) {
+                return $campo . ' = ?';
+            }, array_keys($this->valores));
+            $campos = implode(', ', $campos);
+
+            print_r($valores);
+            print_r($campos);
+
+            $sql = "UPDATE " . str_replace("Models\\", "", get_class($this)) . " SET " . $campos . " WHERE id=?";
+            $stmt = $this->table->prepare($sql);
+            $tipos = str_repeat("s", count($valores)) . "i";
+            $bindParams = array_merge([$tipos], $valores, [$postId]);
+            call_user_func_array([$stmt, 'bind_param'], array_merge([$tipos], array_values($this->valores), [&$postId]));
+            return $stmt->execute();
+        }
+
         public function delete(){
             $sql = "delete from " . str_replace("Models\\", "", get_class($this)) .
                     " where " . $this->w .

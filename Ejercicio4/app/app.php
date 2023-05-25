@@ -102,11 +102,27 @@
             print_r($checkcom->checkComments(1, $c));
         }
 
+        // Desactivar publicacion
+        $tpa = in_array('_tpa', array_keys(filter_input_array(INPUT_GET)));
+        if($tpa){
+            $pid = filter_input_array(INPUT_GET)["pid"];
+            $post = new PostController();
+            print_r(json_encode(['r' => $post->togglePostActive($pid)]));
+        }
+
         // Borrar publicaciones
         $dp = in_array('_dp', array_keys(filter_input_array(INPUT_GET)));
         if($dp){
             $d = filter_input_array(INPUT_GET)["pid"];
             $deletepost = new PostController();
             print_r($deletepost->deletePost(1, $d));
+        }
+
+        // Recuperar comentarios de una publicacion
+        $pm = in_array('_pm', array_keys(filter_input_array(INPUT_GET)));
+        if($pm){
+            $pid = filter_input_array(INPUT_GET)["pid"];
+            $post = new PostController();
+            print_r($post->getPostComments($pid));
         }
     }

@@ -15,25 +15,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/PPW/Ejercicio4/resources/img/favicon.ico">
-    <style>/*body{font-family:'Roboto',serif;}*/</style>
+    <style>
+        body{
+            color:#555;
+            background-color:#f8f8f8;
+        }
+        .cabecera {
+            background-color:#000;
+        }
+        .navegacion {
+            background: #f3c8df;
+            /*background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%);*/
+        }
+    </style>
     <title>Blog</title>
 </head>
 <body>
     <div id="app" class="container-fluid p-0">
-        <header class="row m-0 bg-light">
+        <header class="row m-0 cabecera"> <!-- bg-dark bg-gradient" data-bs-theme="dark"-->
             <div class="col-9">
                 <h1 class="ml-3 mt-2 rainbow">Blog emo punketo rockerito</h1>
             </div>
-            <div class="col-3">   
-                <form class="d-flex mt-3" role="search">
-                    <input class="form-control me-2" id="buscar-palabra" type="search" placeholder="Buscar..." aria-label="Search">
-                    <button class="btn btn-outline-success" type="button" onclick="app.buscarPalabra()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                    </svg></button>
-                </form>             
-            </div>
         </header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg navegacion">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Bienvenid@</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

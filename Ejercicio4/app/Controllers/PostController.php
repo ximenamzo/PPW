@@ -21,16 +21,25 @@
 
         public function getPost($limit="", $pid = ""){
 			$posts = new posts();
-			$resultP = $posts->select(['a.id', 'a.title', 'a.body', 'date_format(a.created_at,"%d/%m/%Y") as fecha', 'b.name'])
-						    ->join('user b', 'a.userId = b.id')
-						    ->where($pid != "" ? [['a.id', $pid]] : [])
-						    ->orderBy([['a.created_at', 'DESC']])
-						    ->limit($limit)
-						    ->get();
-			$comments = new comments();
-			$resultC = $comments->select(['name'],['comment'])->where([['postId',json_decode($resultP)[0]->id]])->get();
-            //return [$resultP,$resultC];
-			return $resultP;
+			$resultP = $posts->select(['a.id', 'a.title', 'a.body', 
+									   'date_format(a.created_at,"%d/%m/%Y") as fecha', 
+									   'b.name'])
+						     ->join('user b', 'a.userId = b.id')
+						     ->where($pid != "" ? [['a.id', $pid]] : [])
+						     ->orderBy([['a.created_at', 'DESC']])
+						     ->limit($limit)
+						     ->get();
+			if($pid!="" || $limit==1){
+				$comments = new comments();
+				$resultC = $comments->select(['id'])
+									->count()
+									->where([['postId',json_decode($resultP)[0]->id]])
+									->get();
+				$result = json_encode(array_merge(json_decode($resultP), json_decode($resultC)));
+			}else{
+				$result = $resultP;
+			}
+			return $result;
 		}
 
 		public function newPost($datos){
@@ -46,7 +55,7 @@
 			$posts->valores = ['userId'=>$datos['userId'], 
 			                   'title'=>$datos['title'], 
 							   'body'=>$datos['body']];
-			$result=$posts->update($datos['pid']);
+			$result=$posts->updatepost($datos['pid']);
 			return;
 			die;
 		}
@@ -57,6 +66,12 @@
 			return $result;
 		}
 
+		public function togglePostActive($pid){
+			$post = new posts();
+			$result = $post->where([['id', $pid]])
+						   ->update([['active', 'not active']]);
+		}
+
 		public function deletePost($limit="", $pid = ""){
 			$posts = new posts();
 			$result = $posts->where([['id', $pid]])
@@ -65,6 +80,16 @@
 			return $result;
 			die;
 		}
+
+		public function getPostComments($pid){
+            $comment = new comments();
+            //$result = $comment->where([['postId', $pid]])->get();
+			$result = $comment->select(['name', 'comment'])
+							  ->where([['postId', $pid]])
+							  ->orderBy([['created_at', 'DESC']])
+							  ->get();
+            return $result;
+        }
 
 		public function saveComment($datos){
 			$comment = new comments();

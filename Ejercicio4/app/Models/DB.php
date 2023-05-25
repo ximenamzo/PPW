@@ -16,6 +16,7 @@
         public $o = ""; // Order by
         public $l = "";
         public $r; //Resultado de consulta
+        public $c = "";
 
         public function __construct($dbh = "localhost", $dbn = "blog", $dbu="root", $dbp=""){
             $this->db_host=$dbh;
@@ -45,6 +46,11 @@
                 $this->s = implode(",", $cc);
             }
             return $this; //instacia de la instacia que estoy utilizando
+        }
+
+        public function count($c = "*"){
+            $this->c = ",count(" .$c . ") as tt";
+            return $this;
         }
 
         public function join($join = "", $on = ""){
@@ -87,6 +93,7 @@
 
         public function get(){
             $sql = "select " . $this->s .
+                   $this->c .
 				   " from " . str_replace("Models\\", "", get_class($this)) .
 				   ($this->j != "" ? " a" . $this->j : "") .
 				   " where " . $this->w .
@@ -111,7 +118,7 @@
             // comilla doble evalua variables
         }
 
-        public function update($postId){
+        public function updatepost($postId){
             $valores = array_values($this->valores);
             $campos = array_map(function ($campo) {
                 return $campo . ' = ?';
@@ -127,6 +134,16 @@
             $bindParams = array_merge([$tipos], $valores, [$postId]);
             call_user_func_array([$stmt, 'bind_param'], array_merge([$tipos], array_values($this->valores), [&$postId]));
             return $stmt->execute();
+        }
+
+        public function update($sets){
+            foreach($sets as $s){
+                $set[] = $s[0] . "=" . $s[1];
+            }
+            $sql = 'update ' . str_replace("Models\\", "", get_class($this)) .
+                   ' set ' .implode(",", $set) . ' where ' . $this->w;
+            $result = $this->table->query($sql);
+            return $result;
         }
 
         public function delete(){
