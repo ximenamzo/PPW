@@ -43,12 +43,14 @@
 									 ->get();
 				$resultMI = $interacts->select(['id'])
 									  ->count()
-									  ->where([['postId',json_decode($resultP)[0]->id]])
+									  ->where([['postId',json_decode($resultP)[0]->id],
+									  		   ['userId',$this->userId]])
 									  ->get();
 				$result = json_encode(array_merge(
-							json_decode($resultP), 
-							json_decode($resultC), 
-							json_decode($resultI)));
+							json_decode($resultP),
+							json_decode($resultC),
+							json_decode($resultI),
+							json_decode($resultMI)));
 			}else{
 				$result = $resultP;
 			}

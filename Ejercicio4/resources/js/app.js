@@ -123,7 +123,7 @@ const app = {
 
                     <a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}"
                        onclick="app.toggleLike(event, ${app.user.id}, ${post[0].id})">
-                        <i class="bi bi-hand-thumbs-up"></i> <span id="likes">${post[2].tt}</span>
+                        <i class="bi bi-hand-thumbs-up${post[3].tt > 0 ? '-fill' : ''}"></i> <span id="likes">${post[2].tt}</span>
                     </a>
 
                     <p class="float-end">
