@@ -38,21 +38,24 @@ const app = {
 			 		html = "";
 			 		//let primera = true; //${ primera ? `active` : `` } ${primera ? `light` : `muted`}
 			 		for(let post of ppresp){
+                        console.log(post);
+                        if(post.active == 1){
 			 			html += `
-                            <a href="#" onclick="app.openPost(event, ${post.id}, this)"
-                                class="list-group-item list-group-item-action pplg"> 
-                                <div class="w-100 border-bottom">
-                                    <h5 class="mb-1">${post.title}</h5>
-                                    <small class="text-muted blanco">
-                                        <i class="bi bi-calendar-week blanco"></i> ${post.fecha}
+                                <a href="#" onclick="app.openPost(event, ${post.id}, this)"
+                                    class="list-group-item list-group-item-action pplg"> 
+                                    <div class="w-100 border-bottom">
+                                        <h5 class="mb-1">${post.title}</h5>
+                                        <small class="text-muted blanco">
+                                            <i class="bi bi-calendar-week blanco"></i> ${post.fecha}
+                                        </small>
+                                    </div>
+                                    <small>
+                                        <i class="bi bi-person-circle"></i>
+                                        <b>${ post.name }</b>
                                     </small>
-                                </div>
-                                <small>
-                                    <i class="bi bi-person-circle"></i>
-                                    <b>${ post.name }</b>
-                                </small>
-                            </a>
-                        `;
+                                </a>
+                            `;
+                        }
                         //primera = false;
                         // para el html, no se recomienda usar id por buena programacion, pero si agregar el ${post.id}
                     }
@@ -107,7 +110,7 @@ const app = {
     },
     
     postHTMLLoad : function (post){
-        console.table(post);
+        //console.table(post);
         return `<div class="w-100 border-bottom mt-4 bg-body rounded-5 p-4">
                     <h5 class="mb-1">${post[0].title}</h5>
                     <small class="text-muted mt-3"> 
@@ -117,27 +120,23 @@ const app = {
                     <p class="mt-2 pb-3 border-bottom fs-5" style="text-align:justify;">
                         ${post[0].body}
                     </p>
+
                     <a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}"
-                       onlick="app.toggleLike(event, ${app.user.id}, ${post[0].id})">
-                        <i class="bi bi-hand-thumbs-up"></i> <span id="likes">${0}</span>
+                       onclick="app.toggleLike(event, ${app.user.id}, ${post[0].id})">
+                        <i class="bi bi-hand-thumbs-up"></i> <span id="likes">${post[2].tt}</span>
                     </a>
+
                     <p class="float-end">
                         <span id="comentarios">
                             <a href="#" role="button"
-                             onclick="app.toggleComments(event, ${post[0].id}, '#post-comments')"
-                             class="btn btn-link btn-sm text-decoration-none link-secondary ${ post[1].tt > 0 ? '' : 'disabled'}">
+                                onclick="app.toggleComments(event, ${post[0].id}, '#post-comments')"
+                                class="btn btn-link btn-sm text-decoration-none link-secondary ${ post[1].tt > 0 ? '' : 'disabled'}">
                                 <i class="bi bi-chat-right"></i> 
                                 ${ post[1].tt } ${post[1].tt == 1 ? 'comentario' : 'comentarios'}
                             </a>
                         </span>
                     </p>
-                    <style>
-                        #post-comments {
-                            max-height: 0;
-                            overflow: hidden;
-                            transition: max-height 0.3s ease-out;
-                        }
-                    </style>
+
                     <div class="input-group mt-3 mb-2">
                         <input type="text" class="form-control rounded-5 bg-body-secondary" ${this.user.sv ? '' : 'disabled readonly'}
                             placeholder="${this.user.sv ? 'Deja tu comentario...' : 'Ingresa para poder realizar comentarios'}" 
@@ -157,11 +156,12 @@ const app = {
             `;
     },
 
-    toggleLike : function (event, uid, pid) {
-        event.preventDefault();
+    toggleLike : function (e, uid, pid) {
+        e.preventDefault();
         fetch(this.routes.toggleLike + "&uid=" + uid + "&pid=" + pid)
-            .then(response => response.json())
-            .then(likes => {
+            .then( response => response.json())
+            .then( likes => {
+                console.log(likes); 
                 $("#likes").html(likes[0].tt);
             }).catch(err => console.error("Hubo un error: ", err));
     },
@@ -191,8 +191,7 @@ const app = {
             }).catch(err => console.error("Hay un error: ", err ));
     },
 
-
-    saveComment : function (pid, uid){
+    saveComment : function (pid, uid) {
         if($("#comment").val() !== ""){
             const commentInput = $("#comment");
             const commentText = commentInput.val().trim();

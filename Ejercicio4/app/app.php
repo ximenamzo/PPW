@@ -107,7 +107,7 @@
         if($tl){
             $datos = filter_input_array(INPUT_GET);
             $post = new PostController();
-            print_r(json_encode(['r' => $post->toggleLike($datos['uid'],$datos['pid'])]));
+            print_r($post->toggleLike($datos['uid'],$datos['pid']));
         }
 
         // Desactivar publicacion

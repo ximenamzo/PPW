@@ -22,7 +22,7 @@
 
         public function getPost($limit="", $pid = ""){
 			$posts = new posts();
-			$resultP = $posts->select(['a.id', 'a.title', 'a.body', 
+			$resultP = $posts->select(['a.id', 'a.title', 'a.body', 'a.active',
 									   'date_format(a.created_at,"%d/%m/%Y") as fecha', 
 									   'b.name'])
 						     ->join('user b', 'a.userId = b.id')
@@ -36,7 +36,19 @@
 									->count()
 									->where([['postId',json_decode($resultP)[0]->id]])
 									->get();
-				$result = json_encode(array_merge(json_decode($resultP), json_decode($resultC)));
+				$interacts = new interactions();
+				$resultI = $interacts->select(['id'])
+									 ->count()
+									 ->where([['postId',json_decode($resultP)[0]->id]])
+									 ->get();
+				$resultMI = $interacts->select(['id'])
+									  ->count()
+									  ->where([['postId',json_decode($resultP)[0]->id]])
+									  ->get();
+				$result = json_encode(array_merge(
+							json_decode($resultP), 
+							json_decode($resultC), 
+							json_decode($resultI)));
 			}else{
 				$result = $resultP;
 			}
@@ -104,7 +116,15 @@
 		// I N T E R A C C I O N E S
 		public function toggleLike($uid, $pid){
 			$like = new interactions();
-			$like->valores = [$uid,$pid,1];
-			$like->create();
+			$like_exists = $like->select(['id'])
+								->where([['postId',$pid],['userId',$uid]])
+								->get();
+			if(count(json_decode($like_exists)) == 0){
+				$like->valores = [$uid,$pid,1];
+				$like->create();
+			}else{
+				$like->where([['postId',$pid],['userId',$uid]])->delete();
+            }
+			return $like->count()->where([['postId',$pid]])->get();
 		}
     }

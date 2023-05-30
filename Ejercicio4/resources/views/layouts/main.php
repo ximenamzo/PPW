@@ -18,10 +18,10 @@
     <style>
         body{
             color:#555;
-            background-color:#f8f8f8;
+            background-image: url('/PPW/Ejercicio4/resources/img/bg3.jpg');
         }
         .cabecera {
-            background-color:#000;
+            background-color:#E4007F;
         }
         .navegacion {
             background: #f3c8df;
@@ -34,7 +34,7 @@
     <div id="app" class="container-fluid p-0">
         <header class="row m-0 cabecera"> <!-- bg-dark bg-gradient" data-bs-theme="dark"-->
             <div class="col-9">
-                <h1 class="ml-3 mt-2 rainbow">Blog emo punketo rockerito</h1>
+                <h1 class="ml-3 mt-2" style="color:#CCCCCC;">Blog emo punketo rockerito</h1>
             </div>
         </header>
         <nav class="navbar navbar-expand-lg navegacion">

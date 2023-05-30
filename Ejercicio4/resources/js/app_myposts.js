@@ -76,7 +76,7 @@ const app_myposts = {
                                     
                                     <!-- D E S A C T I V A R   P U B L I C A C I O N -->
                                     <a href="#" class="link-success" onclick="app_myposts.togglePostActive(${post.id}, ${post.userId})">
-                                        <i class="bi bi-toggle-on"></i></a>
+                                        <i class="${post.active == 1 ? 'bi bi-toggle-on' : 'bi bi-toggle-off'}"></i></a>
 
 
                                     <!-- E L I M I N A R   P U B L I C A C I O N -->

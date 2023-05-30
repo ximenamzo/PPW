@@ -8,7 +8,7 @@
     head($ua);
 ?>
 
-<section class="container pt-3">
+<section class="container pt-3 mb-5">
     <h1 class="border-bottom">Mis publicaciones</h1>
     <form action="/PPW/Ejercicio4/app/app.php" method="POST">
         <div class="card">
