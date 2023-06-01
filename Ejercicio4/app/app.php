@@ -136,12 +136,12 @@
             print_r($post->toggleLike($datos['uid'],$datos['pid']));
         }
 
-        // Love o no love
-        $tlo = in_array('_tlo', array_keys(filter_input_array(INPUT_GET)));
-        if($tlo){
+        // Dislike o no dislike
+        $td = in_array('_td', array_keys(filter_input_array(INPUT_GET)));
+        if($td){
             $datos = filter_input_array(INPUT_GET);
             $post = new PostController();
-            print_r($post->toggleLove($datos['uid'],$datos['pid']));
+            print_r($post->toggleDislike($datos['uid'],$datos['pid']));
         }
         
         // Haha o no haha

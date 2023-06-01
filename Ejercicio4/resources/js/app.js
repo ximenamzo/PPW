@@ -13,7 +13,7 @@ const app = {
         newpost : "/PPW/Ejercicio4/resources/views/autores/newPost.php",
         myposts : "/PPW/Ejercicio4/resources/views/autores/myposts.php",
         togglelike : "/PPW/Ejercicio4/app/app.php?_tl",
-        togglelove : "/PPW/Ejercicio4/app/app.php?_tlo",
+        toggledislike : "/PPW/Ejercicio4/app/app.php?_td",
         togglehaha : "/PPW/Ejercicio4/app/app.php?_th",
         postcomments : "/PPW/Ejercicio4/app/app.php?_pm",
         savecomment : "/PPW/Ejercicio4/app/app.php?_sc",
@@ -28,7 +28,7 @@ const app = {
 	lp : $("#content"),
 
     likesValue : 0,
-    lovesValue : 0,
+    dislikesValue : 0,
     hahasValue : 0,
 
 	view : function(route){
@@ -135,24 +135,24 @@ const app = {
 
 
 
-                    <!-- I  N  T  E  R  A  C  C  I  O  N  E  S -->
-                    <a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}" style="color:blue;"
-                       onclick="app.toggleLike(event, ${app.user.id}, ${post[0].id}, this, ${post[3].id}, ${post[5].id}, ${post[7].id})">
-                        <i class="bi bi-hand-thumbs-up${post[3].tt > 0 ? '-fill' : ''}"
-                           id="like${post[3].id}"></i> <span id="likes">${post[2].tt}</span>
-                    </a>
+<!-- I  N  T  E  R  A  C  C  I  O  N  E  S -->
+<a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}" style="color:blue;"
+    onclick="app.toggleLike(event, ${app.user.id}, ${post[0].id}, this, ${post[3].id}, ${post[5].id}, ${post[7].id})">
+    <i class="bi bi-hand-thumbs-up${post[3].tt > 0 ? '-fill' : ''}"
+        id="like${post[3].id}"></i> <span id="likes">${post[2].tt}</span>
+</a>
 
-                    <a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}" style="color:red;"
-                       onclick="app.toggleLove(event, ${app.user.id}, ${post[0].id}, this, ${post[3].id}, ${post[5].id}, ${post[7].id})">
-                       <i class="bi bi-suit-heart${post[5].tt > 0 ? '-fill' : ''}"
-                          id="love${post[5].id}"></i> <span id="loves">${post[4].tt}</span>
-                    </a>
+<a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}" style="color:red;"
+    onclick="app.toggleDislike(event, ${app.user.id}, ${post[0].id}, this, ${post[3].id}, ${post[5].id}, ${post[7].id})">
+    <i class="bi bi-hand-thumbs-down${post[5].tt > 0 ? '-fill' : ''}"
+        id="dislike${post[5].id}"></i> <span id="dislikes">${post[4].tt}</span>
+</a>
 
-                    <a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}" style="color:#f4d03f;"
-                       onclick="app.toggleHaha(event, ${app.user.id}, ${post[0].id}, this, ${post[3].id}, ${post[5].id}, ${post[7].id})">
-                       <i class="bi bi-emoji-laughing${post[7].tt > 0 ? '-fill' : ''}"
-                          id="haha${post[7].id}"></i> <span id="hahas">${post[6].tt}</span>
-                    </a>
+<a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}" style="color:#f4d03f;"
+    onclick="app.toggleHaha(event, ${app.user.id}, ${post[0].id}, this, ${post[3].id}, ${post[5].id}, ${post[7].id})">
+    <i class="bi bi-emoji-laughing${post[7].tt > 0 ? '-fill' : ''}"
+        id="haha${post[7].id}"></i> <span id="hahas">${post[6].tt}</span>
+</a>
 
 
 
@@ -187,7 +187,7 @@ const app = {
             `;
     },
 
-    toggleLike : function (e, uid, pid, anchor, likeid, loveid, hahaid) {
+    toggleLike : function (e, uid, pid, anchor, likeid, dislikeid, hahaid) {
         e.preventDefault();
         fetch(this.routes.togglelike + "&uid=" + uid + "&pid=" + pid)
             .then( response => response.json())
@@ -198,11 +198,11 @@ const app = {
                 $("#likes").html(likes[0].tt);
                 likesValue = likes[0].tt;
 
-                var iconlo = document.querySelector('#love' + loveid);
-                iconlo.classList.remove('bi-suit-heart-fill');
-                iconlo.classList.add('bi-suit-heart');
-                if (lovesValue > 0) {lovesValue--;}
-                $("#loves").html(lovesValue);
+                var icondis = document.querySelector('#dislike' + dislikeid);
+                icondis.classList.remove('bi-hand-thumbs-down-fill');
+                icondis.classList.add('bi-hand-thumbs-down');
+                if (dislikesValue > 0) {dislikesValue--;}
+                $("#dislikes").html(dislikesValue);
 
                 var iconha = document.querySelector('#haha' + hahaid);
                 iconha.classList.remove('bi-emoji-laughing-fill');
@@ -212,16 +212,16 @@ const app = {
             }).catch(err => console.error("Hubo un error: ", err));
     },
 
-    toggleLove : function (e, uid, pid, anchor, likeid, loveid, hahaid) {
+    toggleDislike : function (e, uid, pid, anchor, likeid, dislikeid, hahaid) {
         e.preventDefault();
-        fetch(this.routes.togglelove + "&uid=" + uid + "&pid=" + pid)
+        fetch(this.routes.toggledislike + "&uid=" + uid + "&pid=" + pid)
             .then( response => response.json())
-            .then( loves => {
-                var iconlo = document.querySelector('#love' + loveid);
-                iconlo.classList.toggle('bi-suit-heart');
-                iconlo.classList.toggle('bi-suit-heart-fill');
-                $("#loves").html(loves[0].tt);
-                lovesValue = loves[0].tt;
+            .then( dislikes => {
+                var icondis = document.querySelector('#dislike' + dislikeid);
+                icondis.classList.toggle('bi-hand-thumbs-down');
+                icondis.classList.toggle('bi-hand-thumbs-down-fill');
+                $("#dislikes").html(dislikes[0].tt);
+                dislikesValue = dislikes[0].tt;
 
                 var iconli = document.querySelector('#like' + likeid);
                 iconli.classList.remove('bi-hand-thumbs-up-fill');
@@ -237,7 +237,7 @@ const app = {
             }).catch(err => console.error("Hubo un error: ", err));
     },
 
-    toggleHaha : function (e, uid, pid, anchor, likeid, loveid, hahaid) {
+    toggleHaha : function (e, uid, pid, anchor, likeid, dislikeid, hahaid) {
         e.preventDefault();
         fetch(this.routes.togglehaha + "&uid=" + uid + "&pid=" + pid)
             .then( response => response.json())
@@ -249,11 +249,11 @@ const app = {
                 hahasValue = hahas[0].tt;
                 //otraFuncion(hahas[0].tt);
 
-                var iconlo = document.querySelector('#love' + loveid);
-                iconlo.classList.remove('bi-suit-heart-fill');
-                iconlo.classList.add('bi-suit-heart');
-                if (lovesValue > 0) {lovesValue--;}
-                $("#loves").html(lovesValue);
+                var icondis = document.querySelector('#dislike' + dislikeid);
+                icondis.classList.remove('bi-hand-thumbs-down-fill');
+                icondis.classList.add('bi-hand-thumbs-down');
+                if (dislikesValue > 0) {dislikesValue--;}
+                $("#dislikes").html(dislikesValue);
 
                 var iconli = document.querySelector('#like' + likeid);
                 iconli.classList.remove('bi-hand-thumbs-up-fill');

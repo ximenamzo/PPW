@@ -153,19 +153,16 @@
 				//$like->where([['postId',$pid],['userId',$uid]])->delete();
 				$likeData = json_decode($like_exists)[0];
 				$tipo = $likeData->tipo;
-
 				if ($tipo != 1) {
-					$like->where([['postId', $pid], ['userId', $uid]])
-						 ->update([['tipo', 1]]);
+					$like->where([['postId', $pid], ['userId', $uid]])->update([['tipo', 1]]);
 				} else {
-					$like->where([['postId', $pid], ['userId', $uid]])
-						 ->delete();
+					$like->where([['postId', $pid], ['userId', $uid]])->delete();
 				}
-            }
+			}
 			return $like->count()->where([['postId',$pid]])->get();
 		}
 
-		public function toggleLove($uid, $pid){
+		public function toggleDislike($uid, $pid){
 			$like = new interactions();
 			$like_exists = $like->select(['id', 'tipo'])
 								->where([['postId',$pid],['userId',$uid]])
@@ -176,15 +173,12 @@
 			}else{
 				$likeData = json_decode($like_exists)[0];
 				$tipo = $likeData->tipo;
-
 				if ($tipo != 2) {
-					$like->where([['postId', $pid], ['userId', $uid]])
-						 ->update([['tipo', 2]]);
+					$like->where([['postId', $pid], ['userId', $uid]])->update([['tipo', 2]]);
 				} else {
-					$like->where([['postId', $pid], ['userId', $uid]])
-						 ->delete();
+					$like->where([['postId', $pid], ['userId', $uid]])->delete();
 				}
-            }
+			}
 			return $like->count()->where([['postId',$pid]])->get();
 		}
 
@@ -199,15 +193,12 @@
 			}else{
 				$likeData = json_decode($like_exists)[0];
 				$tipo = $likeData->tipo;
-
 				if ($tipo != 3) {
-					$like->where([['postId', $pid], ['userId', $uid]])
-						 ->update([['tipo', 3]]);
+					$like->where([['postId', $pid], ['userId', $uid]])->update([['tipo', 3]]);
 				} else {
-					$like->where([['postId', $pid], ['userId', $uid]])
-						 ->delete();
+					$like->where([['postId', $pid], ['userId', $uid]])->delete();
 				}
-            }
+			}
 			return $like->count()->where([['postId',$pid]])->get();
 		}
     }
