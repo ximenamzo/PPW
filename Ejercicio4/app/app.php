@@ -81,9 +81,9 @@
         // Abrir publicacion
         $op = in_array('_op', array_keys(filter_input_array(INPUT_GET)));
         if($op){
-            $o = filter_input_array(INPUT_GET)["pid"];
+            $pid = filter_input_array(INPUT_GET)["pid"];
             $openpost = new PostController();
-            print_r($openpost->getPost(1, $o));
+            print_r($openpost->getPost(1, $pid));
         }
 
         // Cargar mis publicaciones
@@ -100,14 +100,6 @@
             $c = filter_input_array(INPUT_GET)["pid"];
             $checkcom = new CommentController();
             print_r($checkcom->checkComments(1, $c));
-        }
-
-        // Like o no like
-        $tl = in_array('_tl', array_keys(filter_input_array(INPUT_GET)));
-        if($tl){
-            $datos = filter_input_array(INPUT_GET);
-            $post = new PostController();
-            print_r($post->toggleLike($datos['uid'],$datos['pid']));
         }
 
         // Desactivar publicacion
@@ -132,5 +124,15 @@
             $pid = filter_input_array(INPUT_GET)["pid"];
             $post = new PostController();
             print_r($post->getPostComments($pid));
+        }
+
+        // I N T E R A C C I O N E S
+        
+        // Like o no like
+        $tl = in_array('_tl', array_keys(filter_input_array(INPUT_GET)));
+        if($tl){
+            $datos = filter_input_array(INPUT_GET);
+            $post = new PostController();
+            print_r($post->toggleLike($datos['uid'],$datos['pid']));
         }
     }

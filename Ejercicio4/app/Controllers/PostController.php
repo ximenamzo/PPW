@@ -13,6 +13,7 @@
 		private $userId;
 		private $title;
 		private $body;
+		private $active=1;
 
 		public function __construct(){
 			$ua = new LoginController();
@@ -26,7 +27,7 @@
 									   'date_format(a.created_at,"%d/%m/%Y") as fecha', 
 									   'b.name'])
 						     ->join('user b', 'a.userId = b.id')
-						     ->where($pid != "" ? [['a.id', $pid]] : [])
+						     ->where($pid != "" ? [['a.id', $pid],['a.active', 1]] : [['a.active', 1]])
 						     ->orderBy([['a.created_at', 'DESC']])
 						     ->limit($limit)
 						     ->get();
@@ -77,7 +78,9 @@
 
 		public function getMyPosts($uid){
 			$posts = new posts();
-			$result = $posts->where([['userId', $this->userId]])->get();
+			$result = $posts->where([['userId', $this->userId]])
+							->orderBy([['created_at', 'DESC']])
+							->get();
 			return $result;
 		}
 
@@ -118,14 +121,24 @@
 		// I N T E R A C C I O N E S
 		public function toggleLike($uid, $pid){
 			$like = new interactions();
-			$like_exists = $like->select(['id'])
+			$like_exists = $like->select(['id', 'tipo'])
 								->where([['postId',$pid],['userId',$uid]])
 								->get();
 			if(count(json_decode($like_exists)) == 0){
 				$like->valores = [$uid,$pid,1];
 				$like->create();
 			}else{
-				$like->where([['postId',$pid],['userId',$uid]])->delete();
+				//$like->where([['postId',$pid],['userId',$uid]])->delete();
+				$likeData = json_decode($like_exists)[0];
+				$tipo = $likeData->tipo;
+
+				if ($tipo != 1) {
+					$like->where([['postId', $pid], ['userId', $uid]])
+						 ->update([['tipo', 1]]);
+				} else {
+					$like->where([['postId', $pid], ['userId', $uid]])
+						 ->delete();
+				}
             }
 			return $like->count()->where([['postId',$pid]])->get();
 		}

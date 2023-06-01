@@ -1,3 +1,4 @@
+let lastPostId = null;
 const app = {
     routes : {
 		inisession : "/PPW/Ejercicio4/resources/views/auth/login.php",
@@ -36,17 +37,20 @@ const app = {
 			 .then(ppresp => {
                 if(ppresp.length > 0){
 			 		html = "";
-			 		//let primera = true; //${ primera ? `active` : `` } ${primera ? `light` : `muted`}
+			 		let primera = true; //${ primera ? `active` : `` } ${primera ? `light` : `muted`}
 			 		for(let post of ppresp){
                         console.log(post);
                         if(post.active == 1){
 			 			html += `
                                 <a href="#" onclick="app.openPost(event, ${post.id}, this)"
-                                    class="list-group-item list-group-item-action pplg"> 
+                                    class="list-group-item list-group-item-action pplg ${ primera ? `active` : `` }"> 
                                     <div class="w-100 border-bottom">
                                         <h5 class="mb-1">${post.title}</h5>
-                                        <small class="text-muted blanco">
-                                            <i class="bi bi-calendar-week blanco"></i> ${post.fecha}
+                                        <small class="text-muted blanco ${primera ? `text-light` : ``}">
+                                            <i class="bi bi-calendar-week blanco ${primera ? `text-light` : ``}"
+                                               ${primera ? `style="color:white;"` : ``}>
+                                            </i> <span ${primera ? `style="color:white;"` : ``}
+                                                       class="blanco ${primera ? `text-light` : ``}">${post.fecha}</span>
                                         </small>
                                     </div>
                                     <small>
@@ -56,7 +60,7 @@ const app = {
                                 </a>
                             `;
                         }
-                        //primera = false;
+                        primera = false;
                         // para el html, no se recomienda usar id por buena programacion, pero si agregar el ${post.id}
                     }
                     this.pp.html(html);
@@ -88,6 +92,8 @@ const app = {
 			.then(lpresp => {
 				if(lpresp.length > 0){
 					html = this.postHTMLLoad(lpresp);
+                    this.lastPostId = lpresp[0].id;
+                    console.log(this.lastPostId);
                 }
                 this.lp.html(html);
 			}).catch(err => console.error(err));
@@ -121,11 +127,20 @@ const app = {
                         ${post[0].body}
                     </p>
 
+                    <!-- I  N  T  E  R  A  C  C  I  O  N  E  S -->
                     <a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}"
-                       onclick="app.toggleLike(event, ${app.user.id}, ${post[0].id})">
-                        <i class="bi bi-hand-thumbs-up${post[3].tt > 0 ? '-fill' : ''}"></i> <span id="likes">${post[2].tt}</span>
+                       onclick="app.toggleLike(event, ${app.user.id}, ${post[0].id}, this, ${post[3].id})">
+                        <i class="bi bi-hand-thumbs-up${post[3].tt > 0 ? '-fill' : ''}"
+                           id="int${post[3].id}"></i> <span id="likes">${post[2].tt}</span>
                     </a>
 
+                    <a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}"
+                       onclick="app.toggleHeart(event, ${app.user.id}, ${post[0].id}, this, ${post[3].id})">
+                       <i class="bi bi-suit-heart${post[3].tt > 0 ? '-fill' : ''}"
+                          id="int${post[3].id}"></i> <span id="likes">${post[2].tt}</span>
+                    </a>
+
+                    <!-- C  O  M  E  N  T  A  R  I  O  S -->
                     <p class="float-end">
                         <span id="comentarios">
                             <a href="#" role="button"
@@ -156,12 +171,28 @@ const app = {
             `;
     },
 
-    toggleLike : function (e, uid, pid) {
+    toggleLike : function (e, uid, pid, anchor, intid) {
         e.preventDefault();
         fetch(this.routes.toggleLike + "&uid=" + uid + "&pid=" + pid)
             .then( response => response.json())
             .then( likes => {
-                console.log(likes); 
+                console.log(likes);
+                var icon = anchor.querySelector('#int' + intid);
+                icon.classList.toggle('bi-hand-thumbs-up');
+                icon.classList.toggle('bi-hand-thumbs-up-fill');
+                $("#likes").html(likes[0].tt);
+            }).catch(err => console.error("Hubo un error: ", err));
+    },
+
+    toggleHeart : function (e, uid, pid, anchor, intid) {
+        e.preventDefault();
+        fetch(this.routes.toggleLike + "&uid=" + uid + "&pid=" + pid)
+            .then( response => response.json())
+            .then( likes => {
+                console.log(likes);
+                var icon = anchor.querySelector('#int' + intid);
+                icon.classList.toggle('bi-hand-thumbs-up');
+                icon.classList.toggle('bi-hand-thumbs-up-fill');
                 $("#likes").html(likes[0].tt);
             }).catch(err => console.error("Hubo un error: ", err));
     },
