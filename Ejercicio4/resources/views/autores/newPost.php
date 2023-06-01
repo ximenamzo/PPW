@@ -23,7 +23,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="body" class="form-label">Texto</label>
-                    <textarea name="body" id="body" cols="80" rows="10" class="form-control"
+                    <textarea name="body" id="body" cols="20" rows="5" class="form-control"
                         placeholder="Escribe aquí tu próxima funa..." required></textarea>
                 </div>
             </div>

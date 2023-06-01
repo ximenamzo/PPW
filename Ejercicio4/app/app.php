@@ -135,4 +135,20 @@
             $post = new PostController();
             print_r($post->toggleLike($datos['uid'],$datos['pid']));
         }
+
+        // Love o no love
+        $tlo = in_array('_tlo', array_keys(filter_input_array(INPUT_GET)));
+        if($tlo){
+            $datos = filter_input_array(INPUT_GET);
+            $post = new PostController();
+            print_r($post->toggleLove($datos['uid'],$datos['pid']));
+        }
+        
+        // Haha o no haha
+        $th = in_array('_th', array_keys(filter_input_array(INPUT_GET)));
+        if($th){
+            $datos = filter_input_array(INPUT_GET);
+            $post = new PostController();
+            print_r($post->toggleHaha($datos['uid'],$datos['pid']));
+        }
     }

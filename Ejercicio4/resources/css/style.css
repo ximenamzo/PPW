@@ -1,3 +1,7 @@
+body{
+    color:#444;
+}
+
 .rainbow{
     animation: rainbow 2.5s linear;
     animation-iteration-count: infinite;
@@ -42,6 +46,43 @@
     }
 }
 
+.ani{
+    animation: rainbow 2.5s linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes rainbow{
+    100%,0%{
+        color: #BBBBBB;
+    }
+    45%{
+        color: #FFFFFF;
+    }
+    55%{
+        color: #FFFFFF;
+    }
+}
+
+.prevpost { 
+    transition: all .2s ease-in-out; 
+}
+.prevpost:hover { 
+    transform: scale(1.1);
+    background-color: #FF5CAC !important;
+}
+
+.navbar .nav-item { 
+    transition: all .5s ease-in-out;
+    text-decoration: none;
+    color: #E4007F;
+    border-radius: 50px;
+}
+.navbar .nav-item:hover { 
+    transform: scale(1.1);
+    background-color: #FF5CAC;
+    border-radius: 50px;
+}
+
 .colores{
     color: #E4007F;
     color: #FF0080;
@@ -53,3 +94,15 @@
     color: #CCCCCC;
     color: #333333;
 }
+
+
+.list-group-item {
+    background-color: #f1f9fb;
+    border-top: 1px solid #0091b5;
+    border-left-color: #fff;
+    border-right-color: #fff;
+  }
+  
+.list-group-item:hover {
+    background-color: red;
+  }

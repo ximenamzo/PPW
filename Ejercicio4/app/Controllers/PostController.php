@@ -38,20 +38,42 @@
 									->where([['postId',json_decode($resultP)[0]->id]])
 									->get();
 				$interacts = new interactions();
-				$resultI = $interacts->select(['id'])
+				$resultL = $interacts->select(['id'])
 									 ->count()
-									 ->where([['postId',json_decode($resultP)[0]->id]])
+									 ->where([['postId',json_decode($resultP)[0]->id],['tipo',1]])
 									 ->get();
-				$resultMI = $interacts->select(['id'])
+				$resultML = $interacts->select(['id'])
 									  ->count()
-									  ->where([['postId',json_decode($resultP)[0]->id],
+									  ->where([['postId',json_decode($resultP)[0]->id],['tipo',1],
 									  		   ['userId',$this->userId]])
 									  ->get();
+				$resultLo = $interacts->select(['id'])
+									  ->count()
+									  ->where([['postId',json_decode($resultP)[0]->id],['tipo',2]])
+									  ->get();
+				 $resultMLo = $interacts->select(['id'])
+									   ->count()
+									   ->where([['postId',json_decode($resultP)[0]->id],['tipo',2],
+												  ['userId',$this->userId]])
+									   ->get();
+				$resultH = $interacts->select(['id'])
+									  ->count()
+									  ->where([['postId',json_decode($resultP)[0]->id],['tipo',3]])
+									  ->get();
+				 $resultMH = $interacts->select(['id'])
+									   ->count()
+									   ->where([['postId',json_decode($resultP)[0]->id],['tipo',3],
+												  ['userId',$this->userId]])
+									   ->get();
 				$result = json_encode(array_merge(
 							json_decode($resultP),
 							json_decode($resultC),
-							json_decode($resultI),
-							json_decode($resultMI)));
+							json_decode($resultL),
+							json_decode($resultML),
+							json_decode($resultLo),
+							json_decode($resultMLo),
+							json_decode($resultH),
+							json_decode($resultMH)));
 			}else{
 				$result = $resultP;
 			}
@@ -135,6 +157,52 @@
 				if ($tipo != 1) {
 					$like->where([['postId', $pid], ['userId', $uid]])
 						 ->update([['tipo', 1]]);
+				} else {
+					$like->where([['postId', $pid], ['userId', $uid]])
+						 ->delete();
+				}
+            }
+			return $like->count()->where([['postId',$pid]])->get();
+		}
+
+		public function toggleLove($uid, $pid){
+			$like = new interactions();
+			$like_exists = $like->select(['id', 'tipo'])
+								->where([['postId',$pid],['userId',$uid]])
+								->get();
+			if(count(json_decode($like_exists)) == 0){
+				$like->valores = [$uid,$pid,2];
+				$like->create();
+			}else{
+				$likeData = json_decode($like_exists)[0];
+				$tipo = $likeData->tipo;
+
+				if ($tipo != 2) {
+					$like->where([['postId', $pid], ['userId', $uid]])
+						 ->update([['tipo', 2]]);
+				} else {
+					$like->where([['postId', $pid], ['userId', $uid]])
+						 ->delete();
+				}
+            }
+			return $like->count()->where([['postId',$pid]])->get();
+		}
+
+		public function toggleHaha($uid, $pid){
+			$like = new interactions();
+			$like_exists = $like->select(['id', 'tipo'])
+								->where([['postId',$pid],['userId',$uid]])
+								->get();
+			if(count(json_decode($like_exists)) == 0){
+				$like->valores = [$uid,$pid,3];
+				$like->create();
+			}else{
+				$likeData = json_decode($like_exists)[0];
+				$tipo = $likeData->tipo;
+
+				if ($tipo != 3) {
+					$like->where([['postId', $pid], ['userId', $uid]])
+						 ->update([['tipo', 3]]);
 				} else {
 					$like->where([['postId', $pid], ['userId', $uid]])
 						 ->delete();
