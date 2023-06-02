@@ -34,7 +34,7 @@
     <div id="app" class="container-fluid p-0">
         <header class="row m-0 cabecera"> <!-- bg-dark bg-gradient" data-bs-theme="dark"-->
             <div class="col-9">
-                <h1 class="ml-3 mt-2 ani">Blog emo punketo rockerito</h1>
+                <h1 class="ml-3 mt-2 ani">Blog tumblr aesthetic</h1>
             </div>
         </header>
         <nav class="navbar navbar-expand-lg navegacion">

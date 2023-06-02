@@ -133,7 +133,7 @@
         if($tl){
             $datos = filter_input_array(INPUT_GET);
             $post = new PostController();
-            print_r($post->toggleLike($datos['uid'],$datos['pid']));
+            print_r($post->toggleInteraction($datos['uid'],$datos['pid'],1));
         }
 
         // Dislike o no dislike
@@ -141,7 +141,7 @@
         if($td){
             $datos = filter_input_array(INPUT_GET);
             $post = new PostController();
-            print_r($post->toggleDislike($datos['uid'],$datos['pid']));
+            print_r($post->toggleInteraction($datos['uid'],$datos['pid'],2));
         }
         
         // Haha o no haha
@@ -149,6 +149,6 @@
         if($th){
             $datos = filter_input_array(INPUT_GET);
             $post = new PostController();
-            print_r($post->toggleHaha($datos['uid'],$datos['pid']));
+            print_r($post->toggleInteraction($datos['uid'],$datos['pid'],3));
         }
     }

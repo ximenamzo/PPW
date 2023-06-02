@@ -135,24 +135,24 @@ const app = {
 
 
 
-<!-- I  N  T  E  R  A  C  C  I  O  N  E  S -->
-<a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}" style="color:blue;"
-    onclick="app.toggleLike(event, ${app.user.id}, ${post[0].id}, this, ${post[3].id}, ${post[5].id}, ${post[7].id})">
-    <i class="bi bi-hand-thumbs-up${post[3].tt > 0 ? '-fill' : ''}"
-        id="like${post[3].id}"></i> <span id="likes">${post[2].tt}</span>
-</a>
+                    <!-- I  N  T  E  R  A  C  C  I  O  N  E  S -->
+                    <a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}" style="color:blue;"
+                        onclick="app.toggleLike(event, ${app.user.id}, ${post[0].id}, this, ${post[3].id}, ${post[5].id}, ${post[7].id})">
+                        <i class="bi bi-hand-thumbs-up${post[3].tt > 0 ? '-fill' : ''}"
+                            id="like${post[3].id}"></i> <span id="likes">${post[2].tt}</span>
+                    </a>
 
-<a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}" style="color:red;"
-    onclick="app.toggleDislike(event, ${app.user.id}, ${post[0].id}, this, ${post[3].id}, ${post[5].id}, ${post[7].id})">
-    <i class="bi bi-hand-thumbs-down${post[5].tt > 0 ? '-fill' : ''}"
-        id="dislike${post[5].id}"></i> <span id="dislikes">${post[4].tt}</span>
-</a>
+                    <a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}" style="color:red;"
+                        onclick="app.toggleDislike(event, ${app.user.id}, ${post[0].id}, this, ${post[3].id}, ${post[5].id}, ${post[7].id})">
+                        <i class="bi bi-hand-thumbs-down${post[5].tt > 0 ? '-fill' : ''}"
+                            id="dislike${post[5].id}"></i> <span id="dislikes">${post[4].tt}</span>
+                    </a>
 
-<a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}" style="color:#f4d03f;"
-    onclick="app.toggleHaha(event, ${app.user.id}, ${post[0].id}, this, ${post[3].id}, ${post[5].id}, ${post[7].id})">
-    <i class="bi bi-emoji-laughing${post[7].tt > 0 ? '-fill' : ''}"
-        id="haha${post[7].id}"></i> <span id="hahas">${post[6].tt}</span>
-</a>
+                    <a href="#" class="btn btn-link btn-sm text-decoration-none ${this.user.sv ? '' : 'disabled'}" style="color:#f4d03f;"
+                        onclick="app.toggleHaha(event, ${app.user.id}, ${post[0].id}, this, ${post[3].id}, ${post[5].id}, ${post[7].id})">
+                        <i class="bi bi-emoji-laughing${post[7].tt > 0 ? '-fill' : ''}"
+                            id="haha${post[7].id}"></i> <span id="hahas">${post[6].tt}</span>
+                    </a>
 
 
 

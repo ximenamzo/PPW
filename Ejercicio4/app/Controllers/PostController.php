@@ -141,64 +141,23 @@
 		}
 
 		// I N T E R A C C I O N E S
-		public function toggleLike($uid, $pid){
+		public function toggleInteraction($uid, $pid, $num){
 			$like = new interactions();
 			$like_exists = $like->select(['id', 'tipo'])
 								->where([['postId',$pid],['userId',$uid]])
 								->get();
 			if(count(json_decode($like_exists)) == 0){
-				$like->valores = [$uid,$pid,1];
-				$like->create();
-			}else{
-				//$like->where([['postId',$pid],['userId',$uid]])->delete();
-				$likeData = json_decode($like_exists)[0];
-				$tipo = $likeData->tipo;
-				if ($tipo != 1) {
-					$like->where([['postId', $pid], ['userId', $uid]])->update([['tipo', 1]]);
-				} else {
-					$like->where([['postId', $pid], ['userId', $uid]])->delete();
-				}
-			}
-			return $like->count()->where([['postId',$pid]])->get();
-		}
-
-		public function toggleDislike($uid, $pid){
-			$like = new interactions();
-			$like_exists = $like->select(['id', 'tipo'])
-								->where([['postId',$pid],['userId',$uid]])
-								->get();
-			if(count(json_decode($like_exists)) == 0){
-				$like->valores = [$uid,$pid,2];
+				$like->valores = [$uid,$pid,$num];
 				$like->create();
 			}else{
 				$likeData = json_decode($like_exists)[0];
 				$tipo = $likeData->tipo;
-				if ($tipo != 2) {
-					$like->where([['postId', $pid], ['userId', $uid]])->update([['tipo', 2]]);
+				if ($tipo != $num) {
+					$like->where([['postId', $pid], ['userId', $uid]])->update([['tipo', $num]]);
 				} else {
 					$like->where([['postId', $pid], ['userId', $uid]])->delete();
 				}
-			}
-			return $like->count()->where([['postId',$pid]])->get();
-		}
-
-		public function toggleHaha($uid, $pid){
-			$like = new interactions();
-			$like_exists = $like->select(['id', 'tipo'])
-								->where([['postId',$pid],['userId',$uid]])
-								->get();
-			if(count(json_decode($like_exists)) == 0){
-				$like->valores = [$uid,$pid,3];
-				$like->create();
-			}else{
-				$likeData = json_decode($like_exists)[0];
-				$tipo = $likeData->tipo;
-				if ($tipo != 3) {
-					$like->where([['postId', $pid], ['userId', $uid]])->update([['tipo', 3]]);
-				} else {
-					$like->where([['postId', $pid], ['userId', $uid]])->delete();
-				}
-			}
+            }
 			return $like->count()->where([['postId',$pid]])->get();
 		}
     }
